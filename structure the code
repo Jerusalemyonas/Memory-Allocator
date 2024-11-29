@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdbool.h>
+
+// Minimum block size (including header) to maintain alignment
+#define MIN_BLOCK_SIZE 24
+// Magic number to detect memory corruption
+#define MAGIC_NUMBER 0x12345678
+
+// Block header structure
+typedef struct block_header {
+    size_t size;              // Size of the block (including header)
+    bool is_free;            // Whether the block is free
+    unsigned int magic;      // Magic number for corruption detection
+    struct block_header* next; // Next block in the list
+} block_header_t;
